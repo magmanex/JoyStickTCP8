@@ -43,17 +43,19 @@ public class Thread_TCP implements Runnable {
         while (true)
         {
             Socket test1 = clientsocket;
+
             s_mode  = convert_zero3(main_var.check_mode);
             s_high  = convert_zero5(main_var.check_high);
             s_roll  = convert_zero3(main_var.check_roll) ;
             s_pitch = convert_zero3(main_var.check_pitch);
             s_yaw   = convert_zero3(main_var.check_yaw);
             s_angle = convert_zero3(main_var.check_angle);
-            s_sum   = convert_zero3(main_var.check_sum);
+
 
             try {
                 outToServer = new PrintWriter(test1.getOutputStream(),true);
                 checksum();
+                s_sum   = convert_zero3(main_var.check_sum);
                 String message = String.valueOf(s_mode) + "," + String.valueOf(s_high) + "," + String.valueOf(s_roll) + "," + String.valueOf(s_pitch) + "," +
                                  String.valueOf(s_yaw) + "," + String.valueOf(s_angle) + ","  + String.valueOf(s_sum) + ",00";
                 outToServer.println (message) ; //ประโยคที่ทำการส่งให้ server
