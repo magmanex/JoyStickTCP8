@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button buttonconnect    = (Button) findViewById(R.id.buttonCon);
         Button buttonnext       = (Button) findViewById(R.id.buttonNext);
+        Button buttonarm        = (Button) findViewById(R.id.btnarm);
         final EditText edittext = (EditText)findViewById(R.id.editText2);
         final Context context = this;
 
@@ -42,6 +43,18 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 main_var.SERVER_IP = edittext.getText().toString();
                 thread_tcp.start();
+            }
+        });
+
+        //Arm button
+        buttonarm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                main_var.check_mode = 1;
+                Intent nextScreen =  new Intent(context , SecondScreenActivity.class);
+
+                // starting new activity
+                startActivity(nextScreen);
             }
         });
     }

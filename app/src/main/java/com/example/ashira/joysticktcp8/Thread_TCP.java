@@ -53,8 +53,11 @@ public class Thread_TCP implements Runnable {
 
             try {
                 outToServer = new PrintWriter(test1.getOutputStream(),true);
-                outToServer.println ("test sentence na krub") ; //ประโยคที่ทำการส่งให้ server
-                Thread.sleep(1500);
+                checksum();
+                String message = String.valueOf(s_mode) + "," + String.valueOf(s_high) + "," + String.valueOf(s_roll) + "," + String.valueOf(s_pitch) + "," +
+                                 String.valueOf(s_yaw) + "," + String.valueOf(s_angle) + ","  + String.valueOf(s_sum) + ",00";
+                outToServer.println (message) ; //ประโยคที่ทำการส่งให้ server
+                Thread.sleep(100);
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
