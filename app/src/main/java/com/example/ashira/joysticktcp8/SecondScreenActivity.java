@@ -45,7 +45,7 @@ public class SecondScreenActivity  extends AppCompatActivity implements SensorEv
 
     //Yaw
     TextView textView_Yaw;
-    Button button_Y_L,button_Y_R;
+    SeekBar seek_yaw;
 
     //Takeoff/on
     boolean State_power=false;
@@ -72,6 +72,7 @@ public class SecondScreenActivity  extends AppCompatActivity implements SensorEv
         textView3 = (TextView)findViewById(R.id.textView3);
         textView4 = (TextView)findViewById(R.id.textView4);
         textView5 = (TextView)findViewById(R.id.textView5);
+        textView_Yaw = (TextView)findViewById(R.id.tvYaw);
 
 
         image = (ImageView) findViewById(R.id.imageViewCompass);
@@ -80,10 +81,38 @@ public class SecondScreenActivity  extends AppCompatActivity implements SensorEv
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 ////////////////////////////////////////////////////////////////////////////////////
         controller_Joystick();
+        controller_yaw();
         seebbarr( );
-        yaw();
         Power_Takeoff();
         mode();
+    }
+
+    private void controller_yaw() {
+
+        seek_yaw = (SeekBar)findViewById(R.id.seekyaw);
+
+
+        seek_yaw.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                main_var.check_yaw = i;
+                textView_Yaw.setText("Yaw : " + String.valueOf(main_var.check_yaw));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                seek_yaw.setProgress(100);
+                main_var.check_yaw = 100;
+
+            }
+        });
+
     }
 
     private void mode() {
@@ -188,33 +217,6 @@ public class SecondScreenActivity  extends AppCompatActivity implements SensorEv
 
     }
 
-
-    private void yaw() {
-
-        // Textview Yaw button detail
-        textView_Yaw = (TextView)findViewById(R.id.tvYaw);
-        button_Y_L=(Button)findViewById(R.id.button_Y_L);
-        button_Y_R=(Button)findViewById(R.id.button_Y_R);
-
-        button_Y_L.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                main_var.check_yaw -= 1 ;
-                if(main_var.check_yaw < 0) main_var.check_yaw=0;
-                textView_Yaw.setText("Yaw : " + main_var.check_yaw);
-
-            }
-        });
-
-        button_Y_R.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                main_var.check_yaw += 1 ;
-                if(main_var.check_yaw >200) main_var.check_yaw=200;
-            }
-        });
-
-    }
 
     private void seebbarr() {
         seek_bar = (SeekBar)findViewById(R.id.seekBar);
